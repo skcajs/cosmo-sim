@@ -5,7 +5,7 @@ from random import choice
 from string import ascii_lowercase, digits
 
 
-def simulate(grid, lens_galaxy, source_galaxy, simulator, shape=100):
+def simulate(grid, lens_galaxy, source_galaxy, simulator, shape=100, save_data=False):
 
     tracer = al.Tracer.from_galaxies(
         galaxies=[lens_galaxy, source_galaxy]
@@ -31,5 +31,7 @@ def simulate(grid, lens_galaxy, source_galaxy, simulator, shape=100):
 
     im = Image.fromarray(normalized_data).convert('L')
     # im = im.resize((400,400))
-    return im
-    # im.save('data/images/{}.png'.format(''.join(choice(ascii_lowercase + digits) for i in range(6))))
+    if (save_data):
+        im.save('data/images/{}.png'.format(''.join(choice(ascii_lowercase + digits) for i in range(6))))
+    else:
+        return im

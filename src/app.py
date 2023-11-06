@@ -53,7 +53,7 @@ app.layout = html.Div([
                         html.Br(),
                         html.Div([
                             "Einstein Radius",
-                            dcc.Slider(0, 5, value=2.8, id='einstein_radius'),
+                            dcc.Slider(0, 3, value=2.8, id='einstein_radius'),
                         ]),
                         html.Div([
                             "Centre (lens mass x)",
@@ -65,11 +65,11 @@ app.layout = html.Div([
                         ]),
                         html.Div([
                             "Ell Comps (lens mass x)",
-                            dcc.Slider(-0.8, 0.8, value=0.17647, id='ell_comps_lens_x'),
+                            dcc.Slider(-0.4, 0.4, value=0.17647, id='ell_comps_lens_x'),
                         ]),
                         html.Div([
                             "Ell Comps (lens mass y)",
-                            dcc.Slider(-0.8, 0.8, value=0, id='ell_comps_lens_y'),
+                            dcc.Slider(-0.4, 0.4, value=0, id='ell_comps_lens_y'),
                         ]),
                         html.Div([
                             "Intensity (lens light)",
@@ -100,11 +100,11 @@ app.layout = html.Div([
                         ]),
                         html.Div([
                             "Ell Comps (source light y)",
-                            dcc.Slider(-0.8, 0.8, value=-0.1, id='ell_comps_source_x'),
+                            dcc.Slider(-0.4, 0.4, value=-0.1, id='ell_comps_source_x'),
                         ]),
                         html.Div([
                             "Ell Comps (lens mass y)",
-                            dcc.Slider(-0.8, 0.8, value=0.11111, id='ell_comps_source_y'),
+                            dcc.Slider(-0.4, 0.4, value=0.11111, id='ell_comps_source_y'),
                         ]),
                         html.Div([
                             "Intensity (source)",

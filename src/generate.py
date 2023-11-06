@@ -1,6 +1,6 @@
-from simulate import simulate
+from simulator.simulate import simulate
 import autolens as al
-from galaxy import create_lens, create_source, update_lens, update_source
+from simulator.galaxy import create_lens, create_source, update_lens, update_source
 import numpy as np
 from pathlib import Path
 
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     simulator = al.SimulatorImaging(
         exposure_time=720.0, 
         psf=psf, 
-        background_sky_level=1000, 
+        background_sky_level=100, 
         add_poisson_noise=True, 
         noise_seed=-1
     )
@@ -66,10 +66,10 @@ if __name__ == "__main__":
 
         update_source(source_galaxy, 
             centre=(np.random.uniform(-1.0, 1.0), np.random.uniform(-1.0, 1.0)),
-            ell_comps=(np.random.uniform(-0.1, 0.1), np.random.uniform(-0.1, 0.1)),
+            ell_comps=(np.random.uniform(-0.5, 0.5), np.random.uniform(-0.5, 0.5)),
             intensity=(np.random.uniform(0,2)),
             effective_radius=(np.random.uniform(0,2)),
             sersic_index=(1.5)
         )
 
-        simulate(grid, lens_galaxy, source_galaxy, psf, simulator)
+        simulate(grid, lens_galaxy, source_galaxy, simulator, save_data=True)
