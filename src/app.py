@@ -39,6 +39,7 @@ im_enc = pil_to_b64(im)
 
 app = Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
+server = app.server
 
 app.layout = html.Div([
     html.Br(),
