@@ -81,7 +81,7 @@ app.layout = html.Div([
                         ]),
                         html.Div([
                             "serseic index (lens light)",
-                            dcc.Slider(1, 5, value=1.5, id='sersic_index_lens'),
+                            dcc.Slider(1, 5, value=1.0, id='sersic_index_lens'),
                         ]),                     
                     ], style={'padding':'32px'}),
                 ),
@@ -92,11 +92,11 @@ app.layout = html.Div([
                         html.Br(),
                         html.Div([
                             "Centre (source light x)",
-                            dcc.Slider(-1, 1, value=1, id='centre_source_x'),
+                            dcc.Slider(-1, 1, value=0, id='centre_source_x'),
                         ]),
                         html.Div([
                             "Centre (source light y)",
-                            dcc.Slider(-1, 1, value=1, id='centre_source_y'),
+                            dcc.Slider(-1, 1, value=0, id='centre_source_y'),
                         ]),
                         html.Div([
                             "Ell Comps (source light y)",
@@ -116,7 +116,7 @@ app.layout = html.Div([
                         ]),
                         html.Div([
                             "Sersic index (source)",
-                            dcc.Slider(0.5, 5, value=2.5, id='sersic_index_source'),
+                            dcc.Slider(0.5, 5, value=1.5, id='sersic_index_source'),
                         ]),                       
                     ], style={'padding':'32px'}),
                 ),
