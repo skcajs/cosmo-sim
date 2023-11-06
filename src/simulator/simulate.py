@@ -1,11 +1,9 @@
 import autolens as al
 import numpy as np
 from PIL import Image
-from random import choice
-from string import ascii_lowercase, digits
 
 
-def simulate(grid, lens_galaxy, source_galaxy, simulator, shape=100, save_data=False):
+def simulate(grid, lens_galaxy, source_galaxy, simulator, shape=100):
 
     tracer = al.Tracer.from_galaxies(
         galaxies=[lens_galaxy, source_galaxy]
@@ -31,7 +29,5 @@ def simulate(grid, lens_galaxy, source_galaxy, simulator, shape=100, save_data=F
 
     im = Image.fromarray(normalized_data).convert('L')
     # im = im.resize((400,400))
-    if (save_data):
-        im.save('data/images/{}.png'.format(''.join(choice(ascii_lowercase + digits) for i in range(6))))
-    else:
-        return im
+
+    return im
