@@ -169,5 +169,7 @@ def update_graph(einstein_radius, centre_lens_x, centre_lens_y, ell_comps_lens_x
         fig.update_yaxes(showticklabels=False)
         return dcc.Graph(figure=fig)
 
+app = app.server
+
 if __name__ == '__main__':
     app.run(debug=True)
