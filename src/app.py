@@ -73,11 +73,11 @@ app.layout = html.Div([
                         ]),
                         html.Div([
                             "Intensity (lens light)",
-                            dcc.Slider(0, 5, value=2.3, id='intensity_lens'),
+                            dcc.Slider(0, 5, value=2, id='intensity_lens'),
                         ]),
                         html.Div([
                             "Effective radius (lens light)",
-                            dcc.Slider(0, 5, value=2.5, id='effective_radius_lens'),
+                            dcc.Slider(0, 5, value=1, id='effective_radius_lens'),
                         ]),
                         html.Div([
                             "serseic index (lens light)",
