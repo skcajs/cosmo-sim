@@ -1,0 +1,6 @@
+.app-figure {
+    position: relative;
+    /* top: 15%; */
+    top: 50%;
+    transform: translateY(-50%);
+}

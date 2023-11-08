@@ -9,28 +9,13 @@ import csv
 
 if __name__ == "__main__":
     Path("data/images").mkdir(parents=True, exist_ok=True)
-    # lens_galaxy = create_lens(
-    #     redshift=0.5, 
-    #     einstein_radius=2.8, 
-    #     ell_comps=(0.17647, 0.0), 
-    #     intensity=2.3, 
-    #     effective_radius=2.5, 
-    #     sersic_index=1.5
-    # )
 
-    # source_galaxy = create_source(
-    #     redshift=1.0,
-    #     ell_comps=(-0.1, 0.111111), 
-    #     intensity=1.0, 
-    #     effective_radius=1.0, 
-    #     sersic_index=2.5
-    # )
-
-    shape = 100
+    shape = 400
+    scale = 10 / shape
     
     grid = al.Grid2D.uniform(
         shape_native=(shape, shape), 
-        pixel_scales=0.05
+        pixel_scales=scale
     )
 
     psf = al.Kernel2D.from_gaussian(
