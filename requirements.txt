@@ -1,5 +1,6 @@
 dash
 dash-bootstrap-components
+dash_mantine_components
 pandas
 numpy
 autolens
