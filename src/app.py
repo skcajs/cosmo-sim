@@ -11,12 +11,10 @@ server = app.server
 
 shape = 100
 scale = 5 / shape
-background_sky = 100
-exposure = 720.0
 
 grid = utils.create_grid(shape=shape, scale=scale)
 psf = utils.create_psf(grid=grid)
-simulator = utils.simulate_conditions(psf=psf, background_sky=background_sky, exposure=exposure)
+simulator = utils.simulate_conditions(psf=psf, background_sky=100, exposure=720.0)
 lens_galaxy = utils.create_lens()
 source_galaxy = utils.create_source()
 
@@ -41,7 +39,8 @@ app.layout = html.Div([
                 dmc.Col(
                     dmc.ScrollArea([
                     html.H3(children='Image Settings', style={'textAlign':'center'}),
-                    sim.image()
+                    sim.image(),
+                    sim.noise()
                 ], style={'height': '94vh', 'top':'32px'}), span=3
                 ),
             ],
@@ -70,17 +69,19 @@ app.layout = html.Div([
     Input('sersic_index_source', 'value'),
     Input('resolution', 'value'),
     Input('scale', 'value'),
-    Input('colour', 'value')
+    Input('colour', 'value'),
+    Input('noise', 'value'),
+    Input('exposure', 'value')
 )
 def update_graph(einstein_radius, centre_lens_x, centre_lens_y, ell_comps_lens_x, ell_comps_lens_y, intensity_lens, effective_radius_lens, sersic_index_lens,
                  centre_source_x, centre_source_y, ell_comps_source_x, ell_comps_source_y, intensity_source, effective_radius_source, sersic_index_source,
-                 resolution, scalef, colour):
+                 resolution, scalef, colour, noise, exposure):
         
         scale = (10 / resolution) * scalef
 
         grid = utils.create_grid(shape=resolution, scale=scale)
         psf = utils.create_psf(grid=grid)
-        simulator = utils.simulate_conditions(psf=psf, background_sky=background_sky, exposure=exposure)
+        simulator = utils.simulate_conditions(psf=psf, background_sky=noise, exposure=exposure)
 
         utils.update_lens(lens_galaxy, 
             einstein_radius=einstein_radius,
