@@ -7,11 +7,11 @@ def image():
         html.Br(),
         html.Div([
             "Image resolution",
-            dcc.Slider(50, 400, value=100, id='resolution'),
+            dmc.Slider(min=50, max=400, value=100, id='resolution'),
         ]),
         html.Div([
             "Pixel scale",
-            dcc.Slider(0.5, 2.5, value=1, id='scale'),
+            dmc.Slider(min=0.5, max=2.5, step=0.01, value=1, id='scale'),
         ]),
         html.Div([
             "Colour scale",

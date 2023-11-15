@@ -53,6 +53,7 @@ app.layout = html.Div([
 @callback(
     Output('output', 'children'),
     Input('einstein_radius', 'value'),
+    Input('redshift_lens', 'value'),
     Input('centre_lens_x', 'value'),
     Input('centre_lens_y', 'value'),
     Input('ell_comps_lens_x', 'value'),
@@ -60,6 +61,7 @@ app.layout = html.Div([
     Input('intensity_lens', 'value'),
     Input('effective_radius_lens', 'value'),
     Input('sersic_index_lens', 'value'),
+    Input('redshift_source', 'value'),
     Input('centre_source_x', 'value'),
     Input('centre_source_y', 'value'),
     Input('ell_comps_source_x', 'value'),
@@ -73,8 +75,8 @@ app.layout = html.Div([
     Input('noise', 'value'),
     Input('exposure', 'value')
 )
-def update_graph(einstein_radius, centre_lens_x, centre_lens_y, ell_comps_lens_x, ell_comps_lens_y, intensity_lens, effective_radius_lens, sersic_index_lens,
-                 centre_source_x, centre_source_y, ell_comps_source_x, ell_comps_source_y, intensity_source, effective_radius_source, sersic_index_source,
+def update_graph(einstein_radius, redshift_lens, centre_lens_x, centre_lens_y, ell_comps_lens_x, ell_comps_lens_y, intensity_lens, effective_radius_lens, sersic_index_lens,
+                 redshift_source, centre_source_x, centre_source_y, ell_comps_source_x, ell_comps_source_y, intensity_source, effective_radius_source, sersic_index_source,
                  resolution, scalef, colour, noise, exposure):
         
         scale = (10 / resolution) * scalef
@@ -83,7 +85,8 @@ def update_graph(einstein_radius, centre_lens_x, centre_lens_y, ell_comps_lens_x
         psf = utils.create_psf(grid=grid)
         simulator = utils.simulate_conditions(psf=psf, background_sky=noise, exposure=exposure)
 
-        utils.update_lens(lens_galaxy, 
+        utils.update_lens(lens_galaxy,
+            redshift=redshift_lens,
             einstein_radius=einstein_radius,
             centre=(centre_lens_x,centre_lens_y),
             ell_comps=(ell_comps_lens_x, ell_comps_lens_y),
@@ -93,6 +96,7 @@ def update_graph(einstein_radius, centre_lens_x, centre_lens_y, ell_comps_lens_x
         )
 
         utils.update_source(source_galaxy, 
+            redshift=redshift_source,
             centre=(centre_source_x,centre_source_y),
             ell_comps=(ell_comps_source_x, ell_comps_source_y),
             intensity=intensity_source,
