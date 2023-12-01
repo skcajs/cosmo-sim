@@ -11,7 +11,7 @@ def image():
         ]),
         html.Div([
             "Pixel scale",
-            dmc.Slider(min=0.5, max=2.5, step=0.01, value=1, id='scale'),
+            dmc.Slider(min=0.05, max=2.5, step=0.01, value=0.05, id='scale'),
         ]),
         html.Div([
             "Colour scale",
@@ -41,17 +41,17 @@ def noise():
             "PSF",
             dmc.Select(
                 id="psf",
-                value="gaussian",
+                value="./data/psf/slacs/F814W_psf.fits",
                 data=[
-                    {"value": "gaussian", "label": "Gaussian"},
-                    {"value": "two", "label": "Two"},
+                    {"value": "gaussian", "label": "gaussian"},
+                    {"value": "./data/psf/slacs/F814W_psf.fits", "label": "slacs"},
                 ],
                 style={"marginBottom": 10, "paddingLeft": 16, "paddingRight": 16},
             ),
         ]), 
         html.Div([
             "Background noise",
-            dcc.Slider(0, 100, value=100, id='noise'),
+            dcc.Slider(0, 1000, value=100, id='noise'),
         ]),
         html.Div([
             "Exposure",

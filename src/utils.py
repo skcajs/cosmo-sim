@@ -19,16 +19,16 @@ def create_lens(redshift=0.5, einstein_radius=1.0, centre=(0.0,0.0), ell_comps=(
         ),
     )
 
-def update_lens(lens: al.Galaxy, einstein_radius, centre, ell_comps, intensity, effective_radius, sersic_index, redshift=0.5):
+def update_lens(lens: al.Galaxy, einstein_radius, centre, ell_comps_mass, ell_comps_light, intensity, effective_radius, sersic_index, redshift=0.5):
     lens.redshift = redshift
     lens.bulge.centre = centre
-    lens.bulge.ell_comps=ell_comps
+    lens.bulge.ell_comps=ell_comps_light
     lens.bulge.intensity=intensity
     lens.bulge.effective_radius=effective_radius
     lens.bulge.sersic_index=sersic_index
     lens.mass.centre = centre
     lens.mass.einstein_radius = einstein_radius
-    lens.mass.ell_comps=ell_comps
+    lens.mass.ell_comps=ell_comps_mass
 
 
 def create_source(redshift=1.0, centre=(0.0,0.0), ell_comps=(0.0,0.0), intensity=1.0, effective_radius=1.0, sersic_index=1.0) -> al.Galaxy:
@@ -64,12 +64,15 @@ def update_grid(grid: al.Grid2D, shape):
     grid.shape_native = (shape, shape)
     grid.pixel_scales=scale
 
-def create_psf(grid: al.Grid2D):
-    return al.Kernel2D.from_gaussian(
-        shape_native=(21, 21), 
-        sigma=0.1, 
-        pixel_scales=grid.pixel_scales
-    )
+def create_psf(grid: al.Grid2D, psf = None):
+    if psf != 'gaussian':
+        return al.Kernel2D.from_fits(psf, hdu=0, pixel_scales=grid.pixel_scales)
+    else:
+        return al.Kernel2D.from_gaussian(
+            shape_native=(21, 21), 
+            sigma=0.1, 
+            pixel_scales=grid.pixel_scales
+        )
 
 def simulate_conditions(psf, background_sky=100, exposure=720):
     return al.SimulatorImaging(

@@ -17,7 +17,7 @@ def lens():
         # ]),
         html.Div([
             "Einstein Radius",
-            dmc.Slider(min=0, max=3.5, step=0.01, value=2.8, id='einstein_radius'),
+            dmc.Slider(min=0, max=3.5, step=0.01, value=1.6, id='einstein_radius'),
         ]),
         html.Div([
             "Reshift",
@@ -40,12 +40,20 @@ def lens():
             dmc.Slider(min=-0.4, max=0.4, step=0.01, value=0, id='ell_comps_lens_y'),
         ]),
         html.Div([
+            "Ell Comps (lens light x)",
+            dmc.Slider(min=-0.4, max=0.4, step=0.01, value=0, id='ell_comps_lens_light_x'),
+        ]),
+        html.Div([
+            "Ell Comps (lens light y)",
+            dmc.Slider(min=-0.4, max=0.4, step=0.01, value=0, id='ell_comps_lens_light_y'),
+        ]),
+        html.Div([
             "Intensity (lens light)",
-            dmc.Slider(min=0, max=5, step=0.01, value=2, id='intensity_lens'),
+            dmc.Slider(min=0, max=5, step=0.01, value=0, id='intensity_lens'),
         ]),
         html.Div([
             "Effective radius (lens light)",
-            dmc.Slider(min=0, max=5, step=0.01, value=1, id='effective_radius_lens'),
+            dmc.Slider(min=0, max=5, step=0.01, value=0, id='effective_radius_lens'),
         ]),
         html.Div([
             "serseic index (lens light)",
