@@ -1,7 +1,7 @@
 from simulator.simulate import simulate
 import time
 import autolens as al
-from utils import create_lens, create_source, update_lens, update_source, create_psf
+from utils import create_lens, create_source, update_lens, update_source, create_psf, point_in_caustics
 import numpy as np
 from pathlib import Path
 from random import choice
@@ -9,7 +9,7 @@ from string import ascii_lowercase, digits
 import csv
 
 if __name__ == "__main__":
-    size = 60000
+    size = 1000
     filepath = 'data/{0}_{1}/'.format(time.strftime("%Y%m%d%H%M%S"), size)
     Path("{}/images".format(filepath)).mkdir(parents=True, exist_ok=True)
 
@@ -22,12 +22,14 @@ if __name__ == "__main__":
         pixel_scales=scale
     )
 
-    psf = create_psf(grid, psf='./data/psf/slacs/F814W_psf.fits')
+    # psf = create_psf(grid, psf='./data/psf/slacs/F814W_psf.fits')
+
+    psf = create_psf(grid, psf='gaussian')
 
     simulator = al.SimulatorImaging(
         exposure_time=720.0, 
         psf=psf, 
-        background_sky_level=800, 
+        background_sky_level=200, 
         add_poisson_noise=True, 
         noise_seed=-1
     )
@@ -49,20 +51,52 @@ if __name__ == "__main__":
 
 
         for i in range(size):
-            einstein_radius=np.random.uniform(0.5, 2.0)
-            redshift_lens=np.random.uniform(0.4, 0.7)
+            # einstein_radius=np.random.uniform(0.5, 2.0)
+            # redshift_lens=np.random.uniform(0.4, 0.7)
+            # centre_lens=(np.random.uniform(-0.5, 0.5), np.random.uniform(-0.5, 0.5))
+            # ell_comps_lens=(np.random.uniform(-0.5, 0.5), np.random.uniform(-0.5, 0.5))
+            # ell_comps_lens_light=(0, 0)
+            # intensity_lens=0
+            # effective_radius_lens=0
+
+            # redshift_source=np.random.uniform(1.5, 2.5)
+            # centre_source=(np.random.uniform(-0.5, 0.5), np.random.uniform(-0.5, 0.5))
+            # ell_comps_source=(np.random.uniform(-0.5, 0.5), np.random.uniform(-0.5, 0.5))
+            # intensity_source=np.random.uniform(0,1)
+            # effective_radius_source=np.random.uniform(0,0.5)
+            # sersic_index_source=np.random.uniform(2, 5)
+
+
+            einstein_radius=np.random.uniform(0.8, 2.0)
+            redshift_lens=np.random.uniform(0.1, 0.4)
             centre_lens=(np.random.uniform(-0.5, 0.5), np.random.uniform(-0.5, 0.5))
-            ell_comps_lens=(np.random.uniform(-0.5, 0.5), np.random.uniform(-0.5, 0.5))
+            ell_comps_lens=(np.random.uniform(-0.4, 0.4), np.random.uniform(-0.4, 0.4))
             ell_comps_lens_light=(0, 0)
             intensity_lens=0
             effective_radius_lens=0
 
-            redshift_source=np.random.uniform(1.5, 2.5)
-            centre_source=(np.random.uniform(-0.5, 0.5), np.random.uniform(-0.5, 0.5))
-            ell_comps_source=(np.random.uniform(-0.5, 0.5), np.random.uniform(-0.5, 0.5))
-            intensity_source=np.random.uniform(0,1)
-            effective_radius_source=np.random.uniform(0,0.5)
-            sersic_index_source=np.random.uniform(2, 5)
+            redshift_source=np.random.uniform(0.5, 1.2)
+            centre_source=point_in_caustics(lens_galaxy=lens_galaxy, grid=grid)
+            ell_comps_source=(np.random.uniform(-0.1, 0.1), np.random.uniform(-0.1, 0.1))
+            intensity_source=np.random.uniform(0.1,4)
+            effective_radius_source=np.random.uniform(0.1,1)
+            sersic_index_source=np.random.uniform(1, 5)
+
+
+            # einstein_radius=np.random.uniform(0.5, 2.0)
+            # redshift_lens=0.5
+            # centre_lens=(np.random.uniform(-0.5, 0.5), np.random.uniform(-0.5, 0.5))
+            # ell_comps_lens=(np.random.uniform(-1, 1), np.random.uniform(-1, 1))
+            # ell_comps_lens_light=(0, 0)
+            # intensity_lens=0
+            # effective_radius_lens=0
+
+            # redshift_source=1.0
+            # centre_source=(np.random.uniform(-0.5, 0.5), np.random.uniform(-0.5, 0.5))
+            # ell_comps_source=(0, 0)
+            # intensity_source=1.0
+            # effective_radius_source=0.5
+            # sersic_index_source=2.5
 
             update_lens(lens_galaxy, 
                 einstein_radius=einstein_radius,
@@ -71,7 +105,7 @@ if __name__ == "__main__":
                 ell_comps_light=ell_comps_lens_light,
                 intensity=intensity_lens,
                 effective_radius=effective_radius_lens,
-                sersic_index=1.0,
+                sersic_index=1,
                 redshift=redshift_lens
             )
 
@@ -80,7 +114,7 @@ if __name__ == "__main__":
                 ell_comps=ell_comps_source,
                 intensity=intensity_source,
                 effective_radius=effective_radius_source,
-                sersic_index=5,
+                sersic_index=sersic_index_source,
                 redshift=redshift_source
             )
 

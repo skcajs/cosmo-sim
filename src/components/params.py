@@ -33,11 +33,11 @@ def lens():
         ]),
         html.Div([
             "Ell Comps (lens mass x)",
-            dmc.Slider(min=-0.4, max=0.4, step=0.01, value=0, id='ell_comps_lens_x'),
+            dmc.Slider(min=-1, max=1, step=0.01, value=0, id='ell_comps_lens_x'),
         ]),
         html.Div([
             "Ell Comps (lens mass y)",
-            dmc.Slider(min=-0.4, max=0.4, step=0.01, value=0, id='ell_comps_lens_y'),
+            dmc.Slider(min=-1, max=1, step=0.01, value=0, id='ell_comps_lens_y'),
         ]),
         html.Div([
             "Ell Comps (lens light x)",
@@ -79,11 +79,11 @@ def source():
         ]),
         html.Div([
             "Ell Comps (source light y)",
-            dmc.Slider(min=-0.4, max=0.4, step=0.01, value=0, id='ell_comps_source_x'),
+            dmc.Slider(min=-1, max=1, step=0.01, value=0, id='ell_comps_source_x'),
         ]),
         html.Div([
             "Ell Comps (lens mass y)",
-            dmc.Slider(min=-0.4, max=0.4, step=0.01, value=0, id='ell_comps_source_y'),
+            dmc.Slider(min=-1, max=1, step=0.01, value=0, id='ell_comps_source_y'),
         ]),
         html.Div([
             "Intensity (source)",

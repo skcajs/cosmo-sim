@@ -2,6 +2,8 @@ from io import BytesIO
 import base64
 import autolens as al
 import numpy as np
+import math
+import random
 from PIL import Image
 
 def create_lens(redshift=0.5, einstein_radius=1.0, centre=(0.0,0.0), ell_comps=(0.0,0.0), intensity=0, effective_radius=1.0, sersic_index=1.0) -> al.Galaxy:
@@ -116,3 +118,20 @@ def pil_to_b64(im, enc_format="png", **kwargs):
     encoded = base64.b64encode(buff.getvalue()).decode("utf-8")
 
     return encoded
+
+def point_in_caustics(lens_galaxy, grid):
+    caustics = lens_galaxy.mass.radial_caustic_list_from(grid=grid, pixel_scale=0.05)[0]
+    caustics_x = [caustics[x][0] for x in range(len(caustics))]
+    centre = lens_galaxy.mass.centre
+    radius = (max(caustics_x)-min(caustics_x))/2
+    # Generate a random angle in radians
+    theta = random.uniform(0, 2 * math.pi)
+    
+    # Generate a random distance from the center (within the radius)
+    r = math.sqrt(random.uniform(0, 1)) * radius
+    
+    # Convert polar coordinates to Cartesian coordinates
+    x = r * math.cos(theta) + centre[0]
+    y = r * math.sin(theta) + centre[1]
+    
+    return x, y
